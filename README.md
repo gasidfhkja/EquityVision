@@ -1,6 +1,5 @@
 # EquityVision: MachineLearningStocks in python: 
 
-[![forthebadge made-with-python](https://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 
 MachineLearningStocks is an **easy-to-use** and **highly adaptable** template project that applies machine learning techniques to predict stock movements. The goal of this project is to help you grasp the complete workflow of using machine learning for stock prediction and to highlight some of the complexities involved. After working through this guide and experimenting with the project, I encourage you to **build upon it** – if you're unsure where to start, I've included a list of potential improvements at the end of the readme.
 
