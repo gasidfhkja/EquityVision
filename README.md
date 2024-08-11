@@ -1,53 +1,17 @@
-# MachineLearningStocks in python: a starter project and guide
+# EquityVision: MachineLearningStocks in python: 
 
 [![forthebadge made-with-python](https://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 
-[![GitHub license](https://img.shields.io/badge/License-MIT-brightgreen.svg?style=flat-square)](https://github.com/surelyourejoking/MachineLearningStocks/blob/master/LICENSE.txt)
+MachineLearningStocks is an **easy-to-use** and **highly adaptable** template project that applies machine learning techniques to predict stock movements. The goal of this project is to help you grasp the complete workflow of using machine learning for stock prediction and to highlight some of the complexities involved. After working through this guide and experimenting with the project, I encourage you to **build upon it** – if you're unsure where to start, I've included a list of potential improvements at the end of the readme.
 
-*EDIT as of Feb 2021: MachineLearningStocks is no longer actively maintained*
+In this project, we will clean and prepare a dataset of historical stock prices and fundamentals using `pandas`, then apply a `scikit-learn` classifier to uncover the relationship between stock fundamentals (e.g., PE ratio, debt/equity, float, etc.) and the subsequent annual price change relative to an index. Afterward, we'll run a simple backtest before making predictions on current data.
 
-MachineLearningStocks is designed to be an **intuitive** and **highly extensible** template project applying machine learning to making stock predictions. My hope is that this project will help you understand the overall workflow of using machine learning to predict stock movements and also appreciate some of its subtleties. And of course, after following this guide and playing around with the project, you should definitely **make your own improvements** – if you're struggling to think of what to do, at the end of this readme I've included a long list of possiblilities: take your pick.
+While I wouldn't recommend live trading based solely on the predictions from this code, I believe it can serve as a solid foundation for developing a profitable trading system – I have personally used code based on this project for live trading with decent results (around 20% returns in backtesting and 10-15% in live trading).
 
-Concretely, we will be cleaning and preparing a dataset of historical stock prices and fundamentals using `pandas`, after which we will apply a `scikit-learn` classifier to discover the relationship between stock fundamentals (e.g PE ratio, debt/equity, float, etc) and the subsequent annual price change (compared with the an index). We then conduct a simple backtest, before generating predictions on current data.
+This project is personally significant to me as it was my first serious Python project, my initial dive into machine learning, and my first experience with git. The original code had many inefficiencies and poor practices, which I've worked to improve over time, though some minor issues may still exist (feel free to raise an issue or submit a PR). Both the project and I have evolved significantly since its inception, but there’s always room for further improvement.
 
-While I would not live trade based off of the predictions from this exact code, I do believe that you can use this project as starting point for a profitable trading system – I have actually used code based on this project to live trade, with pretty decent results (around 20% returns on backtest and 10-15% on live trading).
 
-This project has quite a lot of personal significance for me. It was my first proper python project, one of my first real encounters with ML, and the first time I used git. At the start, my code was rife with bad practice and inefficiency: I have since tried to amend most of this, but please be warned that some minor issues may remain (feel free to raise an issue, or fork and submit a PR). Both the project and myself as a programmer have evolved a lot since the first iteration, but there is always room to improve.
 
-*As a disclaimer, this is a purely educational project. Be aware that backtested performance may often be deceptive – trade at your own risk!*
-
-*MachineLearningStocks predicts which stocks will outperform. But it does not suggest how best to combine them into a portfolio. I have just released [PyPortfolioOpt](https://github.com/robertmartin8/PyPortfolioOpt), a portfolio optimisation library which uses
-classical efficient frontier techniques (with modern improvements) in order to generate risk-efficient portfolios. Generating optimal allocations from the predicted outperformers might be a great way to improve risk-adjusted returns.*
-
-*This guide has been cross-posted at my academic blog, [reasonabledeviations.com](https://reasonabledeviations.com/)*
-
-## Contents
-
-- [Contents](#contents)
-- [Overview](#overview)
-  - [EDIT as of 24/5/18](#edit-as-of-24518)
-  - [EDIT as of October 2019](#edit-as-of-october-2019)
-- [Quickstart](#quickstart)
-- [Preliminaries](#preliminaries)
-- [Historical data](#historical-data)
-  - [Historical stock fundamentals](#historical-stock-fundamentals)
-  - [Historical price data](#historical-price-data)
-- [Creating the training dataset](#creating-the-training-dataset)
-  - [Preprocessing historical price data](#preprocessing-historical-price-data)
-  - [Features](#features)
-    - [Valuation measures](#valuation-measures)
-    - [Financials](#financials)
-    - [Trading information](#trading-information)
-  - [Parsing](#parsing)
-- [Backtesting](#backtesting)
-- [Current fundamental data](#current-fundamental-data)
-- [Stock prediction](#stock-prediction)
-- [Unit testing](#unit-testing)
-- [Where to go from here](#where-to-go-from-here)
-  - [Data acquisition](#data-acquisition)
-  - [Data preprocessing](#data-preprocessing)
-  - [Machine learning](#machine-learning)
-- [Contributing](#contributing)
 
 ## Overview
 
@@ -61,25 +25,8 @@ The overall workflow to use machine learning to make stocks prediction is as fol
 6. Acquire current fundamental data
 7. Generate predictions from current fundamental data
 
-This is a very generalised overview, but in principle this is all you need to build a fundamentals-based ML stock predictor.
 
-### EDIT as of 24/5/18
 
-This project uses pandas-datareader to download historical price data from Yahoo Finance. However, in the past few weeks this has become extremely inconsistent – it seems like Yahoo have added some measures to prevent the bulk download of their data. I will try to add a fix, but for now, take note that `download_historical_prices.py` may be deprecated.
-
-As a temporary solution, I've uploaded `stock_prices.csv` and `sp500_index.csv`, so the rest of the project can still function.
-
-### EDIT as of October 2019
-
-I expect that after so much time there will be many data issues. To that end, I have decided to upload the other CSV files: `keystats.csv` (the output of `parsing_keystats.py`) and `forward_sample.csv` (the output of `current_data.py`).
-
-## Quickstart
-
-If you want to throw away the instruction manual and play immediately, clone this project, then download and unzip the [data file](https://pythonprogramming.net/data-acquisition-machine-learning/) into the same directory. Then, open an instance of terminal and cd to the project's file path, e.g
-
-```bash
-cd Users/User/Desktop/MachineLearningStocks
-```
 
 Then, run the following in terminal:
 
@@ -351,12 +298,4 @@ Altering the machine learning stuff is probably the easiest and most fun to do.
 - Should we really be trying to predict raw returns? What happens if a stock achieves a 20% return but does so by being highly volatile?
 - Try to plot the importance of different features to 'see what the machine sees'.
 
-## Contributing
-
-Feel free to fork, play around, and submit PRs. I would be very grateful for any bug fixes or more unit tests.
-
-This project was originally based on Sentdex's excellent [machine learning tutorial](https://www.youtube.com/playlist?list=PLQVvvaa0QuDd0flgGphKCej-9jp-QdzZ3), but it has since evolved far beyond that and the code is almost completely different. The complete series is also on [his website](https://pythonprogramming.net/machine-learning-python-sklearn-intro/).
-
----
-
-For more content like this, check out my academic blog at [reasonabledeviations.com/](https://reasonabledeviations.com).
+#
